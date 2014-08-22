@@ -19,3 +19,12 @@
 *.exe
 *.out
 *.app
+
+# IDE Project Files
+*.cbp
+*.depend
+*.layout
+
+# IDE Output Directories
+bin/
+obj/
