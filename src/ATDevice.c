@@ -140,3 +140,77 @@ int ATDevice_setLoudness(struct ATDevice * self, AT_COMMAND_LOUDNESS_OPTION leve
 	// write buffer to stream
 	ATDevice_write(self, buffer, 0, size);
 }
+
+int ATDevice_setMute(ATDevice * self, AT_COMMAND_MUTE_OPTION option) {
+	size_t cursor = 0;
+	size_t size = AT_COMMAND_MUTE_SIZE + AT_COMMAND_MUTE_OPTIONS_SIZE;
+	char buffer[size];
+
+	strncpy(buffer + cursor, AT_COMMAND_MUTE, AT_COMMAND_MUTE_SIZE);
+	cursor += AT_COMMAND_MUTE_SIZE;
+
+	snprintf(buffer + cursor, AT_COMMAND_MUTE_OPTIONS_SIZE, "%d", option);
+	cursor += AT_COMMAND_MUTE_OPTIONS_SIZE;
+
+	return ATDevice_write(self, buffer, 0, size);
+}
+
+int ATDevice_goOnline(ATDevice * self) {
+	return ATDevice_write(self, AT_COMMAND_ONLINE, 0, AT_COMMAND_ONLINE_SIZE);
+}
+
+int ATDevice_supressResultCodes(ATDevice * self) {
+	return ATDevice_write(self, AT_COMMAND_QUIET_ENABLED, 0, AT_COMMAND_QUIET_ENABLED_SIZE);
+}
+
+int ATDevice_enableResultCodes(ATDevice * self) {
+	return ATDevice_write(self, AT_COMMAND_QUIET_DISABLED, 0, AT_COMMAND_QUIET_DISABLED_SIZE);
+}
+
+int ATDevice_selectRegister(ATDevice * self, unsigned int n) {
+	size_t size = AT_COMMAND_REGISTER_SELECT_SIZE + AT_COMMAND_REGISTER_OPTION_N_SIZE;
+	char buffer[size];
+
+	snprintf(buffer, size + 1, "S%d", n);
+
+	return ATDevice_write(self, buffer, 0, size);
+}
+
+int ATDevice_setRegister(ATDevice * self, unsigned int n, const char * value, size_t valueSize) {
+	size_t size = AT_COMMAND_REGISTER_SET_SIZE + AT_COMMAND_REGISTER_OPTION_N_SIZE + valueSize;
+	char buffer[size];
+
+	snprintf(buffer, size + 1, AT_COMMAND_REGISTER_SET, n, value);
+
+	return ATDevice_write(self, buffer, 0, size);
+}
+
+int ATDevice_setSelectedRegister(ATDevice * self, const char * value, size_t valueSize) {
+	size_t size = AT_COMMAND_REGISTER_SET_SELECTED_SIZE + valueSize;
+	char buffer[size];
+
+	snprintf(buffer, size + 1, AT_COMMAND_REGISTER_SET_SELECTED, value);
+
+	return ATDevice_write(self, buffer, 0, size);
+}
+
+int ATDevice_getRegister(ATDevice * self, unsigned int n, char ** value, size_t * valueSize) {
+	size_t size = AT_COMMAND_REGISTER_GET_SIZE + AT_COMMAND_REGISTER_OPTION_N_SIZE;
+	char buffer[size];
+
+	snprintf(buffer, size, AT_COMMAND_REGISTER_GET, n);
+
+	return ATDevice_write(self, buffer, 0, size);
+}
+
+int ATDevice_getSelectedRegister(ATDevice * self, char ** value, size_t * valueSize) {
+	return ATDevice_write(self, AT_COMMAND_REGISTER_GET_SELECTED, 0, AT_COMMAND_REGISTER_GET_SELECTED_SIZE);
+}
+
+int ATDevice_enableVerbose(ATDevice * self) {
+	return ATDevice_write(self, AT_COMMAND_VERBOSE_ENABLE, 0, AT_COMMAND_VERBOSE_ENABLE_SIZE);
+}
+
+int ATDevice_disableVerbose(ATDevice * self) {
+	return ATDevice_write(self, AT_COMMAND_VERBOSE_DISABLE, 0, AT_COMMAND_VERBOSE_DISABLE_SIZE);
+}

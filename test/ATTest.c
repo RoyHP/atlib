@@ -68,6 +68,56 @@ int ATTest_TestDevice() {
 	ATDevice_setLoudness(device, AT_COMMAND_LOUDNESS_OPTION_HIGH);
 	printf("\n--- done");
 
+	printf("\n--- testing setMute");
+	ATDevice_setMute(device, AT_COMMAND_MUTE_OPTION_OFF);
+	ATDevice_setMute(device, AT_COMMAND_MUTE_OPTION_ON_UNTIL_CARRIER_DETECTED);
+	ATDevice_setMute(device, AT_COMMAND_MUTE_OPTION_ON);
+	printf("\n--- done");
+
+	printf("\n--- testing goOnline");
+	ATDevice_goOnline(device);
+	printf("\n--- done");
+
+	printf("\n--- testing supressResultCodes");
+	ATDevice_supressResultCodes(device);
+	printf("\n--- done");
+
+	printf("\n--- testing enable result codes");
+	ATDevice_enableResultCodes(device);
+	printf("\n--- done");
+
+	printf("\n--- testing select register");
+	ATDevice_selectRegister(device, 0);
+	ATDevice_selectRegister(device, 1);
+	printf("\n--- done");
+
+	printf("\n--- testing set register");
+	char * value = "foo";
+	char * value2 = "bar";
+	ATDevice_setRegister(device, 0, value, strlen(value));
+	ATDevice_setRegister(device, 1, value2, strlen(value2));
+	printf("\n--- done");
+
+	printf("\n--- testing set selected register");
+	ATDevice_setSelectedRegister(device, value, strlen(value));
+	ATDevice_setSelectedRegister(device, value2, strlen(value2));
+	printf("\n--- done");
+
+	printf("\n--- testing get register");
+	char * output;
+	size_t outputSize;
+	ATDevice_getRegister(device, 0, &output, &outputSize);
+	printf("\n--- done");
+
+	printf("\n--- testing get selected register");
+	ATDevice_getSelectedRegister(device, &output, &outputSize);
+	printf("\n--- done");
+
+	printf("\n--- testing enable/disable verbose");
+	ATDevice_enableVerbose(device);
+	ATDevice_disableVerbose(device);
+	printf("\n--- done");
+
 	printf("\n--- testing destroy...");
 	ATDevice_destroy(device);
 	printf("\n--- done\n");

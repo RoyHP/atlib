@@ -86,7 +86,7 @@ static const size_t AT_COMMAND_INFO_OPTIONS_SIZE = 3;
 */
 static const char * AT_COMMAND_LOUDNESS = "L"; // followed by "0" to "3", setting the loudness of the ringer speaker
 static const size_t AT_COMMAND_LOUDNESS_SIZE = 1;
-typedef enum {
+typedef enum AT_COMMAND_LOUDNESS_OPTION {
 	AT_COMMAND_LOUDNESS_OPTION_OFF = 0,
 	AT_COMMAND_LOUDNESS_OPTION_LOW = 1,
 	AT_COMMAND_LOUDNESS_OPTION_MEDIUM = 2,
@@ -102,16 +102,59 @@ static const size_t AT_COMMAND_LOUDNESS_OPTIONS_SIZE = 1;
 	1 - speaker on until remote carrier detected
 	2 - speaker always on (data sounds are heard after connect)
 */
-static const char * AT_COMMAND_SILENT = "M";
-static const size_t AT_COMMAND_SILENT_SIZE = 1;
+static const char * AT_COMMAND_MUTE = "M";
+static const size_t AT_COMMAND_MUTE_SIZE = 1;
+typedef enum AT_COMMAND_MUTE_OPTION {
+	AT_COMMAND_MUTE_OPTION_OFF = 0,
+	AT_COMMAND_MUTE_OPTION_ON_UNTIL_CARRIER_DETECTED = 1,
+	AT_COMMAND_MUTE_OPTION_ON = 2
+} AT_COMMAND_MUTE_OPTION;
+static const size_t AT_COMMAND_MUTE_OPTIONS_SIZE = 1;
 
 /* O - RETURN ONLINE
 	returns the modem back to the normal connected state after being interrupted
 */
-static const char * AT_COMMAND_RETURN_ONLINE = "O";
-static const size_t AT_COMMAND_RETURN_ONLINE_SIZE = 1;
+static const char * AT_COMMAND_ONLINE = "O";
+static const size_t AT_COMMAND_ONLINE_SIZE = 1;
 
 /* Q - QUIET MODE
 	sets whether the device should return result codes for
 */
+static const char * AT_COMMAND_QUIET_ENABLED = "Q1";
+static const size_t AT_COMMAND_QUIET_ENABLED_SIZE = 2;
+static const char * AT_COMMAND_QUIET_DISABLED = "Q";
+static const size_t AT_COMMAND_QUIET_DISABLED_SIZE = 1;
+
+/* S - REGISTER MANIPULATION
+	selects, sets, and gets registers and their values
+
+	S<n>     - selects register n
+	S?       - gets the value of the selected register
+	S<n>?    - selects register n and gets the value
+	S=<r>    - sets the selected register to r
+	S<n>=<r> - selects register n and sets that register's value to r
+*/
+static const size_t AT_COMMAND_REGISTER_OPTION_N_SIZE = 1; // size of first parameter "n"
+static const char * AT_COMMAND_REGISTER_SELECT = "S%d";
+static const size_t AT_COMMAND_REGISTER_SELECT_SIZE = 1;
+static const char * AT_COMMAND_REGISTER_GET = "S%d?";
+static const size_t AT_COMMAND_REGISTER_GET_SIZE = 2;
+static const char * AT_COMMAND_REGISTER_GET_SELECTED = "S?";
+static const size_t AT_COMMAND_REGISTER_GET_SELECTED_SIZE = 2;
+static const char * AT_COMMAND_REGISTER_SET = "S%d=%s";
+static const size_t AT_COMMAND_REGISTER_SET_SIZE = 2;
+static const char * AT_COMMAND_REGISTER_SET_SELECTED = "S=%s";
+static const size_t AT_COMMAND_REGISTER_SET_SELECTED_SIZE = 2;
+
+/* V - VERBOSE RESPONSE
+	enables or disables verbose(english) response values
+
+	V  - disables verbose results, switches to numeric results
+	V1 - enables verbose results
+*/
+static const char * AT_COMMAND_VERBOSE_ENABLE = "V1";
+static const size_t AT_COMMAND_VERBOSE_ENABLE_SIZE = 2;
+static const char * AT_COMMAND_VERBOSE_DISABLE = "V";
+static const size_t AT_COMMAND_VERBOSE_DISABLE_SIZE = 1;
+
 #endif // __AT_COMMAND_H__
