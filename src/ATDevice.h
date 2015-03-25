@@ -27,6 +27,7 @@ int ATDevice_supressResultCodes(ATDevice * self);
 int ATDevice_enableResultCodes(ATDevice * self);
 int ATDevice_selectRegister(ATDevice * self, unsigned int n);
 int ATDevice_setRegister(ATDevice * self, unsigned int n, const char * value, size_t valueSize);
+int ATDevice_setRegisterToChar(ATDevice * self, unsigned int n, char value);
 int ATDevice_setSelectedRegister(ATDevice * self, const char * value, size_t valueSize);
 int ATDevice_getRegister(ATDevice * self, unsigned int n, char ** valueOut, size_t * valueOutSize);
 int ATDevice_getSelectedRegister(ATDevice * self, char ** valueOut, size_t * valueOutSize);

@@ -162,6 +162,14 @@ int ATDevice_setRegister(ATDevice * self, unsigned int n, const char * value, si
 	return ATDevice_write(self, buffer, 0, size);
 }
 
+int ATDevice_setRegisterToChar(ATDevice * self, unsigned int n, char value) {
+	size_t size = AT_COMMAND_REGISTER_SET_CHAR_SIZE + AT_COMMAND_REGISTER_OPTION_N_SIZE + 1;
+	char buffer[size];
+	snprintf(buffer, size + 1, AT_COMMAND_REGISTER_SET_CHAR, n, value);
+
+	return ATDevice_write(self, buffer, 0, size);
+}
+
 int ATDevice_setSelectedRegister(ATDevice * self, const char * value, size_t valueSize) {
 	size_t size = AT_COMMAND_REGISTER_SET_SELECTED_SIZE + valueSize;
 	char buffer[size];

@@ -145,6 +145,8 @@ static const char * AT_COMMAND_REGISTER_GET_SELECTED = "S?";
 static const size_t AT_COMMAND_REGISTER_GET_SELECTED_SIZE = 2;
 static const char * AT_COMMAND_REGISTER_SET = "S%d=%s";
 static const size_t AT_COMMAND_REGISTER_SET_SIZE = 2;
+static const char * AT_COMMAND_REGISTER_SET_CHAR = "S%d=%c";
+static const size_t AT_COMMAND_REGISTER_SET_CHAR_SIZE = 2;
 static const char * AT_COMMAND_REGISTER_SET_SELECTED = "S=%s";
 static const size_t AT_COMMAND_REGISTER_SET_SELECTED_SIZE = 2;
 
