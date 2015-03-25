@@ -68,17 +68,17 @@ int ATTest_TestDevice() {
 	ATDevice_setLoudness(device, AT_COMMAND_LOUDNESS_OPTION_HIGH);
 	printf("\n--- done");
 
-	printf("\n--- testing setMute");
+	printf("\n--- testing mute setting");
 	ATDevice_setMute(device, AT_COMMAND_MUTE_OPTION_OFF);
 	ATDevice_setMute(device, AT_COMMAND_MUTE_OPTION_ON_UNTIL_CARRIER_DETECTED);
 	ATDevice_setMute(device, AT_COMMAND_MUTE_OPTION_ON);
 	printf("\n--- done");
 
-	printf("\n--- testing goOnline");
+	printf("\n--- testing going online");
 	ATDevice_goOnline(device);
 	printf("\n--- done");
 
-	printf("\n--- testing supressResultCodes");
+	printf("\n--- testing supress result codes");
 	ATDevice_supressResultCodes(device);
 	printf("\n--- done");
 

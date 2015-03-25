@@ -18,7 +18,7 @@ static const size_t AT_COMMAND_REPEAT_SIZE = 2;
 /* D[phoneNumber][AT_COMMAND_DIAL_OPTION] - DIAL
 	dials the phone number and attempts to call
 */
-static const char * AT_COMMAND_DIAL = "D";
+static const char * AT_COMMAND_DIAL = "D%s%c";
 static const size_t AT_COMMAND_DIAL_SIZE = 1;
 typedef enum AT_COMMAND_DIAL_OPTION {
 	AT_COMMAND_DIAL_OPTION_PULSE, // P - Pulse Dial
@@ -32,15 +32,15 @@ typedef enum AT_COMMAND_DIAL_OPTION {
 	AT_COMMAND_DIAL_OPTION_REDIAL // L - redials last number
 } AT_COMMAND_DIAL_OPTION;
 static const size_t AT_COMMAND_DIAL_OPTIONS_SIZE = 1;
-static const char * AT_COMMAND_DIAL_OPTION_PULSE_CHAR = "P";
-static const char * AT_COMMAND_DIAL_OPTION_TOUCH_TONE_CHAR = "T";
-static const char * AT_COMMAND_DIAL_OPTION_AWAIT_TONE_CHAR = "W";
-static const char * AT_COMMAND_DIAL_OPTION_REVERT_CHAR = "R";
-static const char * AT_COMMAND_DIAL_OPTION_AWAIT_RINGBACK_CHAR = "@";
-static const char * AT_COMMAND_DIAL_OPTION_PAUSE_CHAR = ",";
-static const char * AT_COMMAND_DIAL_OPTION_REMAIN_IN_COMMAND_CHAR = ";";
-static const char * AT_COMMAND_DIAL_OPTION_FLASH_CHAR = "!";
-static const char * AT_COMMAND_DIAL_OPTION_REDIAL_CHAR = "L";
+static const char AT_COMMAND_DIAL_OPTION_PULSE_CHAR = 'P';
+static const char AT_COMMAND_DIAL_OPTION_TOUCH_TONE_CHAR = 'T';
+static const char AT_COMMAND_DIAL_OPTION_AWAIT_TONE_CHAR = 'W';
+static const char AT_COMMAND_DIAL_OPTION_REVERT_CHAR = 'R';
+static const char AT_COMMAND_DIAL_OPTION_AWAIT_RINGBACK_CHAR = '@';
+static const char AT_COMMAND_DIAL_OPTION_PAUSE_CHAR = ',';
+static const char AT_COMMAND_DIAL_OPTION_REMAIN_IN_COMMAND_CHAR = ';';
+static const char AT_COMMAND_DIAL_OPTION_FLASH_CHAR = '!';
+static const char AT_COMMAND_DIAL_OPTION_REDIAL_CHAR = 'L';
 
 /* E[n = 0] - ECHO
 	sets whether the device should echo commands to the computer
@@ -71,9 +71,11 @@ static const size_t AT_COMMAND_HOOK_DISABLE_SIZE = 2;
 
 	lineNum: integer 0 - 9
 */
-static const char * AT_COMMAND_INFO = "I"; // followed by "1" to "9" based on which firmware information line to pull
+static const char * AT_COMMAND_INFO = "I%d"; // followed by "1" to "9" based on which firmware information line to pull
 static const size_t AT_COMMAND_INFO_SIZE = 1;
-static const size_t AT_COMMAND_INFO_OPTIONS_SIZE = 3;
+static const size_t AT_COMMAND_INFO_OPTIONS_SIZE = 1;
+static const unsigned int AT_COMMAND_INFO_OPTION_ID_MIN = 0;
+static const unsigned int AT_COMMAND_INFO_OPTION_ID_MAX = 9;
 
 /* L<volume> - LOUDNESS
 	sets the speaker's volume level
@@ -84,7 +86,7 @@ static const size_t AT_COMMAND_INFO_OPTIONS_SIZE = 3;
 	2 - medium
 	3 - high
 */
-static const char * AT_COMMAND_LOUDNESS = "L"; // followed by "0" to "3", setting the loudness of the ringer speaker
+static const char * AT_COMMAND_LOUDNESS = "L%d"; // followed by "0" to "3", setting the loudness of the ringer speaker
 static const size_t AT_COMMAND_LOUDNESS_SIZE = 1;
 typedef enum AT_COMMAND_LOUDNESS_OPTION {
 	AT_COMMAND_LOUDNESS_OPTION_OFF = 0,
@@ -102,7 +104,7 @@ static const size_t AT_COMMAND_LOUDNESS_OPTIONS_SIZE = 1;
 	1 - speaker on until remote carrier detected
 	2 - speaker always on (data sounds are heard after connect)
 */
-static const char * AT_COMMAND_MUTE = "M";
+static const char * AT_COMMAND_MUTE = "M%d";
 static const size_t AT_COMMAND_MUTE_SIZE = 1;
 typedef enum AT_COMMAND_MUTE_OPTION {
 	AT_COMMAND_MUTE_OPTION_OFF = 0,
